@@ -1,24 +1,44 @@
 import styles from './searchbar.module.css';
 import PropTypes from 'prop-types';
+import { Component } from 'react';
 
-export default function Searchbar({ onSubmit }) {
-  return (
-    <header className={styles.searchbar}>
-      <form className={styles.form}>
-        <button type="submit" className={styles.button}>
-          <span className={styles.buttonLabel}>Search</span>
-        </button>
+export default class Searchbar extends Component {
+  state = {
+    request: '',
+  };
+  handleInputChange = event => {
+    this.setState({ request: event.currentTarget.value.toLowerCase() });
+  };
 
-        <input
-          className={styles.input}
-          type="text"
-          autocomplete="off"
-          autofocus
-          placeholder="Search images and photos"
-        />
-      </form>
-    </header>
-  );
+  handleSubmit = e => {
+    e.preventDefault();
+    if (this.state.request.trim() === '') {
+      alert('Please, enter your request');
+      return;
+    }
+    this.props.onSubmit(this.state.request);
+    this.setState({ request: '' });
+  };
+  render() {
+    return (
+      <header className={styles.searchbar}>
+        <form className={styles.form} onSubmit={this.handleSubmit}>
+          <button type="submit" className={styles.button}>
+            <span className={styles.buttonLabel}>Search</span>
+          </button>
+          <input
+            className={styles.input}
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            value={this.state.request}
+            onChange={this.handleInputChange}
+          />
+        </form>
+      </header>
+    );
+  }
 }
 
 Searchbar.propTypes = { onSubmit: PropTypes.func.isRequired };

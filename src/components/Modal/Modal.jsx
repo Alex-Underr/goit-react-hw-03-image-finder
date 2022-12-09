@@ -1,7 +1,14 @@
+import { createPortal } from 'react-dom';
+
 import styles from './modal.module.css';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
+const modalRoot = document.querySelector('#modal-root');
+
 export default class Modal extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+  };
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
@@ -10,30 +17,28 @@ export default class Modal extends Component {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  handleKeyDown = e => {
-    if (e.code === 'Escape') {
+  handleKeyDown = evt => {
+    if (evt.code === 'Escape') {
       this.props.onClose();
     }
   };
 
-  backDropClick = e => {
-    if (e.currentTarget === e.target) {
+  backDropClick = evt => {
+    if (evt.currentTarget === evt.target) {
       this.props.onClose();
     }
   };
 
   render() {
-    return (
+    return createPortal(
       <div className={styles.overlay} onClick={this.backDropClick}>
         <div className={styles.modal}>
           <img src="" alt="" />
           {this.props.children}
           Модалка
         </div>
-      </div>
+      </div>,
+      modalRoot
     );
   }
 }
-Component.propType = {
-  children: PropTypes.element.isRequired,
-};

@@ -1,4 +1,18 @@
-import styles from './loader.module.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Component } from 'react';
-export default function Loader(second) {}
+import { Vortex } from 'react-loader-spinner';
+export default class Loader extends Component {
+  render() {
+    return (
+      <Vortex
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="vortex-loading"
+        wrapperStyle={{}}
+        wrapperClass="vortex-wrapper"
+        colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+      />
+    );
+  }
+}
