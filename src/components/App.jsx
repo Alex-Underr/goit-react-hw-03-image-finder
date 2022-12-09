@@ -6,7 +6,7 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 // import Button from './Button/Button';
 import Modal from './Modal/Modal';
-import Loader from './Loader/Loader';
+// import Loader from './Loader/Loader';
 // import { imagesAPI } from './imagesAPI';
 
 export class App extends Component {
