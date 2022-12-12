@@ -6,7 +6,7 @@ export default class ImageGalleryItem extends Component {
   showImg = () => {
     this.props.onClick(this.props.largeImageURL, this.props.id);
   };
-  webformatURL;
+
   render() {
     return (
       <li className={styles.imageGalleryItem} onClick={this.showImg}>
@@ -23,6 +23,6 @@ export default class ImageGalleryItem extends Component {
 ImageGalleryItem.propTypes = {
   largeImageURL: PropTypes.string.isRequired,
   id: PropTypes.number,
-  imageGalleryItem: PropTypes.string.isRequired,
+  webformatURL: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };

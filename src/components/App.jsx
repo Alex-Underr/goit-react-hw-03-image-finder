@@ -1,38 +1,53 @@
 import styles from './app.module.css';
-// import PropTypes from 'prop-types';
 import { Component } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
-import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
-// import Button from './Button/Button';
 import Modal from './Modal/Modal';
-// import Loader from './Loader/Loader';
-// import { imagesAPI } from './imagesAPI';
 
 export class App extends Component {
   state = {
     modalShow: false,
     request: '',
+    largeImageURL: null,
+    id: null,
+    page: 1,
   };
 
-  toggleModal = () => {
+  toggleModal = (largeImageURL, id) => {
+    this.setState({ largeImageURL: largeImageURL, id: id });
     this.setState(({ modalShow }) => ({
       modalShow: !modalShow,
     }));
   };
-  searchBarSubmit = request => {
-    this.setState({ request });
+  searchBarSubmit = query => {
+    if (query !== this.state.request) {
+      this.setState({ request: query, page: 1 });
+    }
+  };
+  loadMore = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
   render() {
     const { modalShow } = this.state;
     return (
       <div className={styles.app}>
         <Searchbar onSubmit={this.searchBarSubmit} />
-        {modalShow && <Modal onClose={this.toggleModal}></Modal>}
-        <ImageGallery />
-        <ImageGalleryItem request={this.state.request} />
-
-        {/* <Loader /> */}
+        {modalShow && (
+          <Modal
+            onClose={this.toggleModal}
+            modalShow={this.modalShow}
+            id={this.state.id}
+            largeImageURL={this.state.largeImageURL}
+          >
+            <img src={this.state.largeImageURL} alt={this.state.id} />
+          </Modal>
+        )}
+        <ImageGallery
+          request={this.state.request}
+          onClick={this.toggleModal}
+          loadMore={this.loadMore}
+          page={this.state.page}
+        />
       </div>
     );
   }
