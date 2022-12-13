@@ -16,6 +16,7 @@ export default class Searchbar extends Component {
       alert('Please, enter your request');
       return;
     }
+
     this.props.onSubmit(this.state.request);
     this.setState({ request: '' });
   };

@@ -6,9 +6,6 @@ import { Component } from 'react';
 const modalRoot = document.querySelector('#modal-root');
 
 export default class Modal extends Component {
-  static propTypes = {
-    children: PropTypes.node,
-  };
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
@@ -42,4 +39,5 @@ Modal.propTypes = {
   id: PropTypes.number,
   largeImageURL: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
+  children: PropTypes.node,
 };
