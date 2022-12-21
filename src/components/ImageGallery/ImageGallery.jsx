@@ -6,11 +6,11 @@ import Loader from '../Loader/Loader';
 import PropTypes from 'prop-types';
 export default class ImageGallery extends Component {
   state = {
-    imageData: null,
+    // imageData: null,
     arrayData: [],
     error: null,
     loading: false,
-    button: false,
+    // button: false,
     totalHits: null,
   };
   componentDidUpdate(prevProps, prevState) {
